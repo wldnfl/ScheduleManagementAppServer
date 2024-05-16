@@ -10,12 +10,14 @@
 #### 기능 1 : 일정 작성
 <table>
     <thead>
-        <tr>일정</tr>
-        <tr>할일 제목</tr>
-        <tr>할일 내용</tr>
-        <tr>담당자</tr>
-        <tr>비밀번호</tr>
-        <tr>작성일</tr>
+        <tr>
+        <td>일정</tr>
+        <td>할일 제목</td>
+        <td>할일 내용</td>
+        <td>담당자</td>
+        <td>비밀번호</td>
+        <td>작성일</td>
+        </tr>
     </thead>
 </table>
 
