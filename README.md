@@ -11,12 +11,12 @@
 <table>
     <thead>
         <tr>
-            <th>일정</th>
-            <th>할일 제목</th>
-            <th>할일 내용</th>
-            <th>담당자</th>
-            <th>비밀번호</th>
-            <th>작성일</th>
+            <td>일정</td>
+            <td>할일 제목</td>
+            <td>할일 내용</td>
+            <td>담당자</td>
+            <td>비밀번호</td>
+            <td>작성일</td>
         </tr>
     </thead>
 </table>
