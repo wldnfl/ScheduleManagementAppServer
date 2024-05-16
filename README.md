@@ -11,7 +11,7 @@
 <table>
     <thead>
         <tr>
-        <td>일정</tr>
+        <td>일정</td>
         <td>할일 제목</td>
         <td>할일 내용</td>
         <td>담당자</td>
