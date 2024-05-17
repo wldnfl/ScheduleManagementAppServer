@@ -3,6 +3,8 @@
 <img widht="100%" alt="Use Case Diagram" src="https://github.com/20210805jiwoo/ScheduleManagementAppServer/assets/102974424/0cead6d4-97bd-4b6d-806d-2c082d5d248c">
 
 2. API 명세서
+<img width="747" alt="API 명세서" src="https://github.com/20210805jiwoo/ScheduleManagementAppServer/assets/102974424/040af286-b8a9-4b2f-849b-032e208d65df">
+
 
    
 3. ERD
