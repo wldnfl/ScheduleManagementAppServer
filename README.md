@@ -8,6 +8,7 @@
 ### 3. ERD
 <img width="70%" alt="ERD" src="https://github.com/20210805jiwoo/ScheduleManagementAppServer/assets/102974424/6f19270a-7808-4967-aba3-75947a69f1c5">
 
+<hr>
 
 ### 공통 조건
 1. 일정 작성, 수정, 조회 시 반환 받은 일정 정보에 `비밀번호`는 제외 되어있습니다.
