@@ -6,7 +6,7 @@
 <img width="70%" alt="API 명세서" src="https://github.com/20210805jiwoo/ScheduleManagementAppServer/assets/102974424/040af286-b8a9-4b2f-849b-032e208d65df">
    
 3. ERD
-<img width="80%" alt="ERD" src="https://github.com/20210805jiwoo/ScheduleManagementAppServer/assets/102974424/6f19270a-7808-4967-aba3-75947a69f1c5">
+<img width="70%" alt="ERD" src="https://github.com/20210805jiwoo/ScheduleManagementAppServer/assets/102974424/6f19270a-7808-4967-aba3-75947a69f1c5">
 
 
 ### 공통 조건
