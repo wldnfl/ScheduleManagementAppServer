@@ -1,7 +1,10 @@
 ## 나만의 일정 관리 앱 서버 만들기
 1. Use Case Diagram
 <img widht="100%" alt="Use Case Diagram" src="https://github.com/20210805jiwoo/ScheduleManagementAppServer/assets/102974424/0cead6d4-97bd-4b6d-806d-2c082d5d248c">
+
 2. API 명세서
+
+   
 3. ERD
 <img width="100%" alt="ERD" src="https://github.com/20210805jiwoo/ScheduleManagementAppServer/assets/102974424/6f19270a-7808-4967-aba3-75947a69f1c5">
 
