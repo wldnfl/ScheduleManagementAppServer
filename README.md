@@ -2,7 +2,7 @@
 1. Use Case Diagram
 2. API 명세서
 3. ERD
-<img width="1466" alt="스크린샷 2024-05-17 오전 10 45 02" src="https://github.com/20210805jiwoo/ScheduleManagementAppServer/assets/102974424/6f19270a-7808-4967-aba3-75947a69f1c5">
+<img width="700" alt="ERD" src="https://github.com/20210805jiwoo/ScheduleManagementAppServer/assets/102974424/6f19270a-7808-4967-aba3-75947a69f1c5">
 
 
 ### 공통 조건
