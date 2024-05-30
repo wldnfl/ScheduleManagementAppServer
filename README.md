@@ -6,7 +6,7 @@
 [API 명세서](https://www.notion.so/e4b4fdbc259948248c16df89717f0cc5?v=f07c0603433b45728301649cf46addc4&pvs=4)
 
 ### 3. ERD
-<iframe width="600" height="336" src="https://www.erdcloud.com/p/46RhsFCgz5ene8sM2" frameborder="0" allowfullscreen></iframe>
+[ERD](https://www.erdcloud.com/p/46RhsFCgz5ene8sM2)
 <img width="100%" alt="ERD2" src="https://github.com/wldnfl/ScheduleManagementAppServer/assets/102974424/22c048f6-6d3a-4448-bdbf-cad2066e00c1">
 
 <hr>
