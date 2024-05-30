@@ -7,6 +7,7 @@
    
 ### 3. ERD
 <img width="70%" alt="ERD" src="https://github.com/20210805jiwoo/ScheduleManagementAppServer/assets/102974424/6f19270a-7808-4967-aba3-75947a69f1c5">
+<img width="70%" alt="ERD2" src="https://github.com/wldnfl/ScheduleManagementAppServer/assets/102974424/c0e1183b-c76c-4563-a5e3-6ae66960d9bf">
 
 <hr>
 
