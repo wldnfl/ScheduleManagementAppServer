@@ -4,6 +4,7 @@
 
 ### 2. API 명세서
 [API 명세서](https://documenter.getpostman.com/view/29105336/2sA3Qv7qNM#e832717d-bbc9-4887-8a5b-7f7c881881e5)
+
 <img width="70%" alt="API" src="https://github.com/wldnfl/ScheduleManagementAppServer/assets/102974424/4d5574ef-5a05-480b-a3cb-384343bc52d9">
 
 ### 3. ERD
