@@ -3,10 +3,10 @@
 <img widht="100%" alt="Use Case Diagram" src="https://github.com/20210805jiwoo/ScheduleManagementAppServer/assets/102974424/0cead6d4-97bd-4b6d-806d-2c082d5d248c">
 
 ### 2. API 명세서
-[API 명세서](https://www.notion.so/e4b4fdbc259948248c16df89717f0cc5?v=f07c0603433b45728301649cf46addc4&pvs=4)
+[API 명세서](https://www.notion.so/e4b4fdbc259948248c16df89717f0cc5?v=f07c0603433b45728301649cf46addc4&pvs=4)
 
 ### 3. ERD
-<img width="70%" alt="ERD2" src="https://github.com/wldnfl/ScheduleManagementAppServer/assets/102974424/22c048f6-6d3a-4448-bdbf-cad2066e00c1">
+<img width="100%" alt="ERD2" src="https://github.com/wldnfl/ScheduleManagementAppServer/assets/102974424/22c048f6-6d3a-4448-bdbf-cad2066e00c1">
 
 <hr>
 
