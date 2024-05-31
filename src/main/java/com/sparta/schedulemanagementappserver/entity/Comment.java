@@ -11,9 +11,9 @@ import java.time.LocalDateTime;
 @Entity
 @Getter
 @Setter
-@Table(name = "schedule")
+@Table(name = "comment")
 @NoArgsConstructor
-public class Comment extends Timestamped {
+public class Comment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,11 +25,14 @@ public class Comment extends Timestamped {
     @Column(nullable = false)
     private String username;
 
-    @Column(nullable = false)
-    private LocalDateTime created_at;
+    @Column(nullable = false, name = "createdAt")
+    private LocalDateTime createdAt;
 
     @ManyToOne
-    @JoinColumn(name = "schedule_id")
+    @JoinColumn(name = "scheduleId", insertable = false, updatable = false)
     private Schedule schedule;
 
+    public void updateComment(CommentRequestDto commentDto) {
+        this.content = commentDto.getContent();
+    }
 }

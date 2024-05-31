@@ -6,14 +6,15 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
 @Setter
+@Table(name = "schedule")
 @NoArgsConstructor
-public class Schedule extends Timestamped {
+public class Schedule extends Timestamped{
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -30,15 +31,8 @@ public class Schedule extends Timestamped {
     @Column(nullable = false)
     private String password;
 
-    @OneToMany(mappedBy = "schedule")
-    private List<Comment> commentList = new ArrayList<>();
-
-    public Schedule(ScheduleRequestDto requestDto) {
-        this.title = requestDto.getTitle();
-        this.content = requestDto.getContent();
-        this.assignee = requestDto.getAssignee();
-        this.password = requestDto.getPassword();
-    }
+    @Column(nullable = false)
+    private LocalDateTime createdAt;
 
     public void update(ScheduleRequestDto requestDto) {
         this.title = requestDto.getTitle();
@@ -46,5 +40,4 @@ public class Schedule extends Timestamped {
         this.assignee = requestDto.getAssignee();
         this.password = requestDto.getPassword();
     }
-
 }

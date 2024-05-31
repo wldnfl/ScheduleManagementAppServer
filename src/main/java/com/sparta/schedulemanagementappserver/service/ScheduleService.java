@@ -2,44 +2,58 @@ package com.sparta.schedulemanagementappserver.service;
 
 import com.sparta.schedulemanagementappserver.dto.ScheduleRequestDto;
 import com.sparta.schedulemanagementappserver.dto.ScheduleResponseDto;
-import com.sparta.schedulemanagementappserver.model.Schedule;
+import com.sparta.schedulemanagementappserver.entity.Schedule;
+import com.sparta.schedulemanagementappserver.repository.ScheduleRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ScheduleService {
-    private final List<Schedule> schedules = new ArrayList<>();
-    private long nextId = 1;
+    private final ScheduleRepository scheduleRepository;
+
+    public ScheduleService(ScheduleRepository scheduleRepository) {
+        this.scheduleRepository = scheduleRepository;
+    }
 
     public ScheduleResponseDto createSchedule(ScheduleRequestDto scheduleRequestDto) {
         Schedule schedule = new Schedule();
-        schedule.setId(nextId++);
         schedule.setTitle(scheduleRequestDto.getTitle());
         schedule.setContent(scheduleRequestDto.getContent());
         schedule.setAssignee(scheduleRequestDto.getAssignee());
         schedule.setPassword(scheduleRequestDto.getPassword());
         schedule.setCreatedAt(LocalDateTime.now());
-        schedules.add(schedule);
+        scheduleRepository.save(schedule);
         return new ScheduleResponseDto(schedule);
     }
 
     public List<ScheduleResponseDto> getAllSchedules() {
-        List<ScheduleResponseDto> responseDtoList = new ArrayList<>();
-        for (Schedule schedule : schedules) {
-            responseDtoList.add(new ScheduleResponseDto(schedule));
-        }
-        return responseDtoList;
+        List<Schedule> schedules = scheduleRepository.findAll();
+        return schedules.stream()
+                .map(ScheduleResponseDto::new)
+                .collect(Collectors.toList());
     }
 
     public ScheduleResponseDto getSelectedSchedule(Long id) {
-        for (Schedule schedule : schedules) {
-            if (schedule.getId().equals(id)) {
-                return new ScheduleResponseDto(schedule);
-            }
-        }
-        return null; // or throw exception if not found
+        Schedule schedule = scheduleRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("일정을 찾을 수 없습니다."));
+        return new ScheduleResponseDto(schedule);
+    }
+
+    @Transactional
+    public ScheduleResponseDto updateSchedule(Long id, ScheduleRequestDto requestDto) {
+        Schedule schedule = scheduleRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("일정을 찾을 수 없습니다."));
+        schedule.update(requestDto);
+        return new ScheduleResponseDto(schedule);
+    }
+
+    public void deleteSchedule(Long id) {
+        Schedule schedule = scheduleRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("일정을 찾을 수 없습니다."));
+        scheduleRepository.delete(schedule);
     }
 }
