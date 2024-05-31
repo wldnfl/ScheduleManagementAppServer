@@ -1,6 +1,5 @@
 package com.sparta.schedulemanagementappserver.entity;
 
-import com.sparta.schedulemanagementappserver.dto.CommentRequestDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -29,10 +28,17 @@ public class Comment {
     private LocalDateTime createdAt;
 
     @ManyToOne
-    @JoinColumn(name = "scheduleId", insertable = false, updatable = false)
+    @JoinColumn(name = "scheduleId", nullable = false)
     private Schedule schedule;
 
-    public void updateComment(CommentRequestDto commentDto) {
-        this.content = commentDto.getContent();
+    public Comment(String content, String username, Schedule schedule) {
+        this.content = content;
+        this.username = username;
+        this.createdAt = LocalDateTime.now();
+        this.schedule = schedule;
+    }
+
+    public void update(String content) {
+        this.content = content;
     }
 }

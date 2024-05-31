@@ -1,9 +1,11 @@
 package com.sparta.schedulemanagementappserver.service;
 
-import com.sparta.schedulemanagementappserver.dto.CommentRequestDto;
-import com.sparta.schedulemanagementappserver.dto.CommentResponseDto;
+import com.sparta.schedulemanagementappserver.dto.CommentCreateRequest;
+import com.sparta.schedulemanagementappserver.dto.CommentResponse;
+import com.sparta.schedulemanagementappserver.dto.CommentUpdateRequest;
 import com.sparta.schedulemanagementappserver.entity.Comment;
 import com.sparta.schedulemanagementappserver.entity.Schedule;
+import com.sparta.schedulemanagementappserver.exception.DataNotFoundException;
 import com.sparta.schedulemanagementappserver.repository.CommentRepository;
 import com.sparta.schedulemanagementappserver.repository.ScheduleRepository;
 import jakarta.servlet.http.HttpServletRequest;
@@ -12,69 +14,53 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class CommentService {
     private final CommentRepository commentRepository;
-    private final ScheduleRepository scheduleRepository;
+    private final ScheduleService scheduleService;
 
-    public CommentResponseDto createComment(HttpServletRequest request, String schedule, CommentRequestDto commentDto) {
-        // 일정 ID로 일정 찾기
-        Long scheduleId = Long.parseLong(schedule);
-        Optional<Schedule> optionalSchedule = scheduleRepository.findById(scheduleId);
+    @Transactional
+    public CommentResponse save(long scheduleId, CommentCreateRequest request) {
 
-        if (optionalSchedule.isPresent()) {
-            Schedule scheduleEntity = optionalSchedule.get();
-
-            // 새로운 댓글 생성
-            Comment comment = new Comment();
-            comment.setContent(commentDto.getContent());
-            comment.setUsername(commentDto.getUsername());
-            comment.setCreatedAt(LocalDateTime.now());
-            comment.setSchedule(scheduleEntity);
-
-            // 댓글을 레포지토리에 저장
-            commentRepository.save(comment);
-
-            return new CommentResponseDto(comment);
-        } else {
-            throw new IllegalArgumentException("일정을 찾을 수 없습니다.");
-        }
+        // DB에 일정이 존재하지 않는 경우
+        Schedule schedule = scheduleService.findScheduleById(scheduleId);
+        Comment comment = commentRepository.save(new Comment(request.getComment(), request.getUsername(), schedule));
+        return CommentResponse.toDto(comment);
     }
 
     @Transactional
-    public String updateComment(HttpServletRequest request, String schedule, CommentRequestDto commentDto, Long commentId) {
-        // 댓글 ID로 댓글 찾기
-        Optional<Comment> optionalComment = commentRepository.findById(commentId);
+    public CommentResponse update(long scheduleId, long commentId, CommentUpdateRequest request) {
+        // DB에 일정이 존재하지 않는 경우
+        scheduleService.findScheduleById(scheduleId);
+        // 해당 댓글이 DB에 존재하지 않는 경우
+        Comment comment = findById(commentId);
 
-        if (optionalComment.isPresent()) {
-            Comment comment = optionalComment.get();
-
-            // 댓글 내용 업데이트
-            comment.updateComment(commentDto);
-
-            return "댓글이 성공적으로 업데이트되었습니다.";
-        } else {
-            throw new IllegalArgumentException("댓글을 찾을 수 없습니다.");
+        // 사용자가 일치하지 않는 경우
+        if (!Objects.equals(comment.getUsername(), request.getUsername())) {
+            throw new IllegalArgumentException("작성자만 수정할 수 있습니다.");
         }
+
+        comment.update(request.getComment());
+        return CommentResponse.toDto(comment);
     }
 
-    @Transactional
-    public String deleteComment(HttpServletRequest request, String schedule, Long commentId) {
-        // 댓글 ID로 댓글 찾기
-        Optional<Comment> optionalComment = commentRepository.findById(commentId);
+    public Comment findById(Long commentId) {
+        return commentRepository.findById(commentId)
+                .orElseThrow(() -> new DataNotFoundException("해당 댓글이 DB에 존재하지 않습니다."));
+    }
 
-        if (optionalComment.isPresent()) {
-            Comment comment = optionalComment.get();
-
-            // 댓글 삭제
-            commentRepository.delete(comment);
-
-            return "댓글이 성공적으로 삭제되었습니다.";
-        } else {
-            throw new IllegalArgumentException("댓글을 찾을 수 없습니다.");
+    public void delete(long scheduleId, long commentId, String username) {
+        // DB에 일정이 존재하지 않는 경우
+        scheduleService.findScheduleById(scheduleId);
+        // 해당 댓글이 DB에 존재하지 않는 경우
+        Comment comment = findById(commentId);
+        // 작성자가 동일하지 않는 경우
+        if (!Objects.equals(comment.getUsername(), username)) {
+            throw new IllegalArgumentException("작성자만 삭제할 수 있습니다.");
         }
     }
 }

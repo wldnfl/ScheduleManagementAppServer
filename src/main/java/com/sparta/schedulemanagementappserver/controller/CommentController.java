@@ -1,33 +1,44 @@
 package com.sparta.schedulemanagementappserver.controller;
 
-import com.sparta.schedulemanagementappserver.dto.CommentRequestDto;
-import com.sparta.schedulemanagementappserver.dto.CommentResponseDto;
+import com.sparta.schedulemanagementappserver.dto.CommentCreateRequest;
+import com.sparta.schedulemanagementappserver.dto.CommentResponse;
+import com.sparta.schedulemanagementappserver.dto.CommentUpdateRequest;
 import com.sparta.schedulemanagementappserver.service.CommentService;
-import jakarta.servlet.http.HttpServletRequest;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/schedule/{scheduleId}/comment")
+@RequiredArgsConstructor
 public class CommentController {
     private final CommentService commentService;
 
-    public CommentController(CommentService commentService) {
-        this.commentService = commentService;
+    @PostMapping
+    public ResponseEntity<CommentResponse> create(
+            @PathVariable(name = "scheduleId") long scheduleId,
+            @RequestBody CommentCreateRequest request) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(
+                commentService.save(scheduleId, request)
+        );
     }
 
-    @PostMapping("/comment") // 댓글 등록
-    public CommentResponseDto createComment(HttpServletRequest request, @PathVariable String schedule, @RequestBody CommentRequestDto commentdto) {
-        return commentService.createComment(request, schedule, commentdto);
+    @PatchMapping("{commentId}")
+    public ResponseEntity<CommentResponse> update(
+            @PathVariable(name = "scheduleId") long scheduleId,
+            @PathVariable(name = "commentId") long commentId,
+            @RequestBody CommentUpdateRequest request) {
+        return ResponseEntity.ok().body(commentService.update(scheduleId, commentId, request));
     }
 
-    @PutMapping("/comment/{comment_id}") // 댓글 수정
-    public String updateComment(HttpServletRequest request, @PathVariable String schedule, @RequestBody CommentRequestDto commentdto, @PathVariable Long comment_id) {
-        return commentService.updateComment(request, schedule, commentdto, comment_id);
-    }
+    @DeleteMapping("{commentId}")
+    public ResponseEntity<String> delete(
+            @PathVariable(name = "scheduleId") long scheduleId,
+            @PathVariable(name = "commentId") long commentId,
+            @RequestBody String username) {
 
-    @DeleteMapping("/comment/{comment_id}") // 댓글 삭제
-    public String deleteComment(HttpServletRequest request, @PathVariable String schedule, @PathVariable Long comment_id) {
-        return commentService.deleteComment(request, schedule, comment_id);
+        commentService.delete(scheduleId, commentId, username);
+        return ResponseEntity.ok().body("성공적으로 댓글 삭제!");
     }
 }
