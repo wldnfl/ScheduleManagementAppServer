@@ -6,10 +6,10 @@ import lombok.Getter;
 public class CommentUpdateRequest {
 
     private String username;
-    private String comment;
+    private String content;
 
-    public CommentUpdateRequest(String username, String comment) {
+    public CommentUpdateRequest(String username, String content) {
         this.username = username;
-        this.comment = comment;
+        this.content = content;
     }
 }

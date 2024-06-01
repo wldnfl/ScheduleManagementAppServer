@@ -10,7 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/schedule/{scheduleId}/comment")
+@RequestMapping("/api/{scheduleId}/comment")
 @RequiredArgsConstructor
 public class CommentController {
     private final CommentService commentService;

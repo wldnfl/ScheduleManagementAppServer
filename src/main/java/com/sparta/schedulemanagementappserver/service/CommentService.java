@@ -28,7 +28,7 @@ public class CommentService {
 
         // DB에 일정이 존재하지 않는 경우
         Schedule schedule = scheduleService.findScheduleById(scheduleId);
-        Comment comment = commentRepository.save(new Comment(request.getComment(), request.getUsername(), schedule));
+        Comment comment = commentRepository.save(new Comment(request.getContent(), request.getUsername(), schedule));
         return CommentResponse.toDto(comment);
     }
 
@@ -44,7 +44,7 @@ public class CommentService {
             throw new IllegalArgumentException("작성자만 수정할 수 있습니다.");
         }
 
-        comment.update(request.getComment());
+        comment.update(request.getContent());
         return CommentResponse.toDto(comment);
     }
 
