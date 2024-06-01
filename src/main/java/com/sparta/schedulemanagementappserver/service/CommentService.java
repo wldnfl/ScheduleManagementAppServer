@@ -22,6 +22,7 @@ import java.util.Optional;
 public class CommentService {
     private final CommentRepository commentRepository;
     private final ScheduleService scheduleService;
+    private final ScheduleRepository scheduleRepository;
 
     @Transactional
     public CommentResponse save(long scheduleId, CommentCreateRequest request) {
@@ -53,14 +54,23 @@ public class CommentService {
                 .orElseThrow(() -> new DataNotFoundException("해당 댓글이 DB에 존재하지 않습니다."));
     }
 
-    public void delete(long scheduleId, long commentId, String username) {
-        // DB에 일정이 존재하지 않는 경우
-        scheduleService.findScheduleById(scheduleId);
-        // 해당 댓글이 DB에 존재하지 않는 경우
-        Comment comment = findById(commentId);
-        // 작성자가 동일하지 않는 경우
-        if (!Objects.equals(comment.getUsername(), username)) {
-            throw new IllegalArgumentException("작성자만 삭제할 수 있습니다.");
+    public void delete(Long scheduleId, Long commentId, String username) {
+        if (scheduleId == null || commentId == null) {
+            throw new IllegalArgumentException("댓글 혹은 일정의 아이디가 없습니다.");
         }
+
+        // DB에 일정이 존재하지 않는 경우
+        scheduleRepository.findById(scheduleId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 id에 맞는 일정 데이터가 없습니다. 아이디 : " + scheduleId));
+
+        // 해당 댓글이 DB에 존재하지 않는 경우
+        Comment comment = commentRepository.findById(commentId)
+                .orElseThrow(() -> new DataNotFoundException("해당 댓글이 DB에 존재하지 않습니다."));
+
+        if (!Objects.equals(comment.getUsername(), username)) {
+            throw new IllegalArgumentException("사용자가 일치하지 않습니다.");
+        }
+
+        commentRepository.delete(comment);
     }
 }
