@@ -39,6 +39,8 @@ public class Schedule extends Timestamped {
     @Column(nullable = false)
     private LocalDateTime createdAt;
 
+    private boolean deleted = false; // 기본값 false
+
     @OneToMany(mappedBy = "schedule", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<Comment> comments;
 
@@ -58,5 +60,12 @@ public class Schedule extends Timestamped {
         if (requestDto.getUsername() != null && !requestDto.getUsername().isBlank()) {
             this.username = requestDto.getUsername();
         }
+    }
+
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
+    }
+    public boolean isDeleted() {
+        return deleted;
     }
 }
