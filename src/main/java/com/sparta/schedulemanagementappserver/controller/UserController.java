@@ -22,6 +22,7 @@ public class UserController {
 
     private final UserService userService;
 
+    // 회원가입 요청 데이터 검증, 오류 있으면 400 상태 반환
     @PostMapping("/register")
     public ResponseEntity<String> signup(@Valid @RequestBody SignupRequestDto requestDto, BindingResult bindingResult) {
         List<FieldError> fieldErrors = bindingResult.getFieldErrors();
@@ -37,6 +38,7 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.CREATED).body("회원가입 성공\nHttpStatus : " + HttpStatus.CREATED);
     }
 
+    // 로그인 요청이 들어오는데 JwtAuthenticationFilter가 이 요청을 가로채 인증 시도
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody LoginRequestDto loginRequestDto) {
         return ResponseEntity.ok().body("로그인 성공!");

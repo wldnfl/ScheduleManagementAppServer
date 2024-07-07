@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.ArrayList;
 import java.util.Collection;
 
+// UserDetails 인터페이스를 구현해 Spring Security에서 사용할 수 있는 사용자 정보 객체 제공
 public class UserDetailsImpl implements UserDetails {
 
     private final User user;

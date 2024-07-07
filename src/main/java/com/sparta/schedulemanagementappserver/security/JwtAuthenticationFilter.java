@@ -24,6 +24,10 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         setFilterProcessesUrl("/api/user/login");
     }
 
+    /*
+    로그인 시도 처리
+    로그인 요청 데이터 읽어들여 UsernamePasswordAuthenticationToken 생성하고 인증 시도
+    */
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
         try {
@@ -42,6 +46,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         }
     }
 
+    // 로그인 성공 시 JWT 생성하고 응답 헤더에 추가 (응답 본문에 로그인 성공 메시지와 토큰 포함)
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException {
         String username = ((UserDetailsImpl) authResult.getPrincipal()).getUsername();
@@ -54,6 +59,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         response.getWriter().write("로그인 성공!\nHttpStatus : " + response.getStatus());
     }
 
+    // 로그인 실패 시 응답 상태 401
     @Override
     protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) throws IOException {
         response.setStatus(401);

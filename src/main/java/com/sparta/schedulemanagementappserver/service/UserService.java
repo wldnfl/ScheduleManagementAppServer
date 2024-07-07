@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+// 사용자 등록 로직 처리
+// 비밀번호 암호화, 사용자 역할 설정, 중복 검사 수행
 @Service
 @RequiredArgsConstructor
 public class UserService {

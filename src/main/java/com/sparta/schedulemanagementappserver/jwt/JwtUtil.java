@@ -14,6 +14,7 @@ import java.security.Key;
 import java.util.Base64;
 import java.util.Date;
 
+// JWT 생성, 검증, 추출 등의 기능
 @Slf4j(topic = "JwtUtil")
 @Component
 public class JwtUtil {
